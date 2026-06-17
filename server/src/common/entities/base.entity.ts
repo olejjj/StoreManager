@@ -2,11 +2,11 @@ import { PrimaryGeneratedColumn, CreateDateColumn, Column } from 'typeorm';
 
 export abstract class BaseEntity {
   @PrimaryGeneratedColumn('uuid')
-  id!: string; // Dodany wykrzyknik!
+  id!: string; 
 
   @CreateDateColumn()
-  creationDate!: Date; // Dodany wykrzyknik!
+  creationDate!: Date; 
 
   @Column({ default: false })
-  isDeleted!: boolean; // Dodany wykrzyknik!
+  isDeleted!: boolean; 
 }

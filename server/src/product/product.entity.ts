@@ -1,17 +1,29 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, OneToMany, ManyToMany, JoinTable } from 'typeorm';
 import { BaseEntity } from '../common/entities/base.entity';
+import { Comment } from '../comment/comment.entity';
+import { Category } from '../category/category.entity';
 
+// dziedziczenie z baseentity
 @Entity()
 export class Product extends BaseEntity {
   @Column()
-  title!: string; // Dodany wykrzyknik!
+  title!: string; 
 
   @Column('text')
-  description!: string; // Dodany wykrzyknik!
+  description!: string; 
 
   @Column()
-  creatorUserId!: string; // Dodany wykrzyknik!
+  creatorUserId!: string; 
 
   @Column()
-  imageUrl!: string; // Dodany wykrzyknik!
+  imageUrl!: string; 
+
+  // Relacja: Jeden produkt ma Wiele komentarzy 
+  @OneToMany(() => Comment, (comment) => comment.product)
+  comments!: Comment[];
+
+  // Relacja: Wiele produktów ma Wiele kategorii
+  @ManyToMany(() => Category, (category) => category.products)
+  @JoinTable() 
+  categories!: Category[];
 }

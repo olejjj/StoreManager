@@ -1,15 +1,17 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config'; 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }), 
     TypeOrmModule.forRoot({
       type: 'sqlite',
-      database: 'db.sqlite', // Nazwa pliku, który się utworzy
-      entities: [__dirname + '/**/*.entity{.ts,.js}'], // Gdzie Nest ma szukać naszych tabel
-      synchronize: true, // Automatycznie tworzy tabele na podstawie kodu
+      database: 'db.sqlite',
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      synchronize: true, 
     }),
   ],
   controllers: [AppController],
