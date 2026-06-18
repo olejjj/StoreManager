@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -15,8 +15,12 @@ export class ProductController {
 
   // GET na http://localhost:3000/product pobiera wszystkie nieusunięte
   @Get()
-  findAll() {
-    return this.productService.findAll();
+  findAll(
+    @Query('page') page: string = '1',
+    @Query('limit') limit: string = '10',
+    @Query('search') search?: string,
+  ) {
+    return this.productService.findAll(+page, +limit, search);
   }
 
   // PATCH na http://localhost:3000/product/123 edytuje produkt o id 
